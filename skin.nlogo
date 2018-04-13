@@ -345,7 +345,7 @@ end
 ;firm procedure
 to make-quality
   set quality
-  (reduce [ [?1 ?2] -> ?1 + ?2 ]
+  (sum
     (map [ ?1 -> (item ?1 abilities) * (1 - exp (- (item ?1 expertises))) ]
       ih))
   mod 10
@@ -360,7 +360,7 @@ end
 
 to-report map-artefact [ locations bottom top]
   report int
-  ((reduce [ [?1 ?2] -> ?1 + ?2 ]
+  ((sum
     (map [ ?1 -> (item ?1 capabilities) * (item ?1 abilities) ] locations)) mod (top - bottom)) + bottom
 end
 
@@ -907,7 +907,7 @@ to create-network
   ; add the founder and the founder's partners to the network
   ask the-network [ add-members myself ]
   ; extract the HQ's startup capital from the new network's members
-  let partners-wealth reduce [ [?1 ?2] -> ?1 + ?2 ] map [ ?1 -> [capital] of ?1 ] [members] of the-network
+  let partners-wealth sum map [ ?1 -> [capital] of ?1 ] [members] of the-network
   foreach [members] of the-network [ set capital capital - (initial-capital * capital / partners-wealth) ]
   ; produce the network's first product
   ask [ hq ] of the-network [
@@ -2153,7 +2153,7 @@ Polygon -6459832 true true 38 138 66 149
 Polygon -6459832 true true 46 128 33 120 21 118 11 123 3 138 5 160 13 178 9 192 0 199 20 196 25 179 24 161 25 148 45 140
 Polygon -6459832 true true 67 122 96 126 63 144
 @#$#@#$#@
-NetLogo 6.0.1
+NetLogo 6.0.2
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
