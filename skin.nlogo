@@ -693,7 +693,7 @@ end
 to learn-from-partners
   ask partners [ merge-capabilities myself ]
   make-innovation-hypothesis
-  if Update-advert [ ; by default, advert is kept at state before first partnership, set switch to on to update advert when learning from partners (leads to more parnterships)
+  if Update-advert [ ; by default, advert is kept at state before first partnership, set switch to on to update advert when learning from partners (leads to higher number of partners on average)
     make-advert
   ]
 end
@@ -725,7 +725,12 @@ to add-capabilities [ other-firm ]
     ]
     [
       ; capability is new to me; adopt it if I have 'room'
-      if (length capabilities) < ((capital / capital-knowledge-ratio) + 1) [
+      let cap-capacity ((capital / capital-knowledge-ratio) + 1)
+      if Limit-kenes [ ; if you want to limit number of kenes according to capital-knowledge-ratio, you must take the ln
+        if cap-capacity < 1 [ set cap-capacity 1 ]
+        set cap-capacity ln cap-capacity
+      ]
+      if length capabilities < cap-capacity [
         set capabilities sentence capabilities capability
         set abilities sentence abilities item ?1 [abilities] of other-firm
         let other-expertise (item ?1 [expertises] of other-firm) - 1
@@ -1800,6 +1805,17 @@ SWITCH
 Update-advert
 Update-advert
 1
+1
+-1000
+
+SWITCH
+1115
+470
+1252
+503
+Limit-kenes
+Limit-kenes
+0
 1
 -1000
 
