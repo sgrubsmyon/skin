@@ -693,6 +693,9 @@ end
 to learn-from-partners
   ask partners [ merge-capabilities myself ]
   make-innovation-hypothesis
+  if Update-advert [ ; by default, advert is kept at state before first partnership, set switch to on to update advert when learning from partners (leads to more parnterships)
+    make-advert
+  ]
 end
 
 ;firm procedure
@@ -1788,6 +1791,17 @@ SKIN (Simulating Knowledge Dynamics in Innovation Networks) 5.32
 11
 0.0
 1
+
+SWITCH
+950
+470
+1107
+503
+Update-advert
+Update-advert
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
