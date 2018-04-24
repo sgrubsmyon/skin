@@ -779,6 +779,9 @@ to do-incremental-research
   if not Incr-research [ stop ]
   if research-direction = "random"  [
     set ability-to-research random length ih
+    if Do-research-on-ih [
+      set ability-to-research one-of ih
+    ]
     ifelse (random 2) = 1
       [ set research-direction "up" ]
     [ set research-direction "down" ]
@@ -1815,7 +1818,18 @@ SWITCH
 503
 Limit-kenes
 Limit-kenes
-0
+1
+1
+-1000
+
+SWITCH
+1260
+470
+1442
+503
+Do-research-on-ih
+Do-research-on-ih
+1
 1
 -1000
 
