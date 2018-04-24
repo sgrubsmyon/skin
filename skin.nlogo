@@ -1061,9 +1061,11 @@ to exit
   ]
   ; remove myself from records of partnerships I am or have been in
   ; and from lists of suppliers and customers
-  ask firms [
-    set partners partners with [ myself != self ]
-    set previous-partners previous-partners with [myself != self ]
+  if not Skip-unneeded [
+    ask firms [
+      set partners partners with [ myself != self ]
+      set previous-partners previous-partners with [myself != self ]
+    ]
   ]
   ask firms with [member? myself suppliers or member? myself customers] [
     set customers remove myself customers
@@ -1829,6 +1831,17 @@ SWITCH
 503
 Do-research-on-ih
 Do-research-on-ih
+1
+1
+-1000
+
+SWITCH
+1450
+470
+1612
+503
+Skip-unneeded
+Skip-unneeded
 1
 1
 -1000
