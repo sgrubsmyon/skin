@@ -864,6 +864,11 @@ to adjust-ih [ location ]
     if elem > location [ set ih replace-item i ih (elem - 1 ) ]
     set i i + 1
   ]
+  if Do-research-on-ih [
+    if ability-to-research > location [
+      set ability-to-research (ability-to-research - 1)
+    ]
+  ]
 end
 
 ; Adjust the price of my product to respond to market conditions:
