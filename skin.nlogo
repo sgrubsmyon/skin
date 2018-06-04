@@ -333,7 +333,7 @@ to make-product
   set product map-artefact ih raw-materials nProducts
   ; if the customer is an end user, the income from a sale of the product is fixed at 'final-price',
   ; otherwise set price to random
-  ifelse product > end-products
+  ifelse product >= end-products
   [ set price final-price ]
   [ set price (random maxPrice) + 1 ]
 end
@@ -357,6 +357,8 @@ end
 ; NB this is different from the Cybernetics and Systems article, which says that it is
 ; composed from only capabilities (if that were the case, incremental research would
 ; never have an effect on a product).
+
+; Minimum reported value is bottom, maximum is top - 1
 
 to-report map-artefact [ locations bottom top]
   report int
@@ -405,7 +407,7 @@ to make-inputs
   ; stop firms that have only raw-material
   ; inputs and make an end-user product -
   ; that's cheating!
-  if product > end-products [
+  if product >= end-products [
     let raw-inputs-only true
     foreach inputs [ ?1 ->
       if ?1 > raw-materials [ set raw-inputs-only false ]
@@ -487,7 +489,7 @@ end
 to-report product-desired [ market ]
   let my-product product
   ; if the product is an end-user product it is always in demand
-  if my-product > end-products [ report true ]
+  if my-product >= end-products [ report true ]
   let found-demand false
   report any? market with [member? my-product inputs]
 end
@@ -582,7 +584,7 @@ to purchase
   ; buy the inputs from my capital
   set capital capital - total-cost
   ; if the firm is producing a consumer product, sell it to the end user
-  if product > end-products [
+  if product >= end-products [
     set capital capital + final-price
     set sales sales + final-price
     set customers fput "end-user" customers
