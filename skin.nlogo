@@ -410,7 +410,7 @@ to make-inputs
   if product >= end-products [
     let raw-inputs-only true
     foreach inputs [ ?1 ->
-      if ?1 > raw-materials [ set raw-inputs-only false ]
+      if ?1 >= raw-materials [ set raw-inputs-only false ]
     ]
     if raw-inputs-only [ set inputs (list (nProducts + 1)) ]
   ]
