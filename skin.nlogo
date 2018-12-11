@@ -926,7 +926,13 @@ to create-network
   ask the-network [ add-members myself ]
   ; extract the HQ's startup capital from the new network's members
   let partners-wealth sum map [ ?1 -> [capital] of ?1 ] [members] of the-network
-  foreach [members] of the-network [ set capital capital - (initial-capital * capital / partners-wealth) ]
+  ifelse Split-network-initial-capital [
+    foreach [members] of the-network [ ?1 ->
+      ask ?1 [ set capital capital - (initial-capital * capital / partners-wealth) ]
+    ]
+  ] [
+    foreach [members] of the-network [ set capital capital - (initial-capital * capital / partners-wealth) ]
+  ]
   ; produce the network's first product
   ask [ hq ] of the-network [
     make-innovation-hypothesis
@@ -1853,6 +1859,17 @@ Skip-unneeded
 1
 -1000
 
+SWITCH
+1620
+470
+1862
+503
+Split-network-initial-capital
+Split-network-initial-capital
+1
+1
+-1000
+
 @#$#@#$#@
 ## WHAT IS IT?
 
@@ -2217,7 +2234,7 @@ Polygon -6459832 true true 38 138 66 149
 Polygon -6459832 true true 46 128 33 120 21 118 11 123 3 138 5 160 13 178 9 192 0 199 20 196 25 179 24 161 25 148 45 140
 Polygon -6459832 true true 67 122 96 126 63 144
 @#$#@#$#@
-NetLogo 6.0.2
+NetLogo 6.0.4
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
